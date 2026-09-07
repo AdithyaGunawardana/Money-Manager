@@ -40,21 +40,21 @@ class DashboardServiceTest {
     }
 
     @Test
-    void balance_isIncomeMinusExpense() {
-        when(incomeRepository.sumAmountByUserId(1L)).thenReturn(new BigDecimal("1000.00"));
-        when(expenseRepository.sumAmountByUserId(1L)).thenReturn(new BigDecimal("350.00"));
-        when(incomeRepository.sumAmountByUserIdAndDateRange(anyLong(), any(), any())).thenReturn(BigDecimal.ZERO);
-        when(expenseRepository.sumAmountByUserIdAndDateRange(anyLong(), any(), any())).thenReturn(BigDecimal.ZERO);
+    void balance_isIncomeMinusExpenseForSelectedMonth() {
+        when(incomeRepository.sumAmountByUserIdAndDateRange(anyLong(), any(), any()))
+                .thenReturn(new BigDecimal("1000.00"));
+        when(expenseRepository.sumAmountByUserIdAndDateRange(anyLong(), any(), any()))
+                .thenReturn(new BigDecimal("350.00"));
 
         DashboardResponse result = dashboardService.getDashboard(1L, YearMonth.now());
 
         assertEquals(new BigDecimal("650.00"), result.balance());
+        assertEquals(new BigDecimal("1000.00"), result.totalIncome());
+        assertEquals(new BigDecimal("350.00"), result.totalExpense());
     }
 
     @Test
     void noTransactions_balanceIsZero() {
-        when(incomeRepository.sumAmountByUserId(1L)).thenReturn(BigDecimal.ZERO);
-        when(expenseRepository.sumAmountByUserId(1L)).thenReturn(BigDecimal.ZERO);
         when(incomeRepository.sumAmountByUserIdAndDateRange(anyLong(), any(), any())).thenReturn(BigDecimal.ZERO);
         when(expenseRepository.sumAmountByUserIdAndDateRange(anyLong(), any(), any())).thenReturn(BigDecimal.ZERO);
 

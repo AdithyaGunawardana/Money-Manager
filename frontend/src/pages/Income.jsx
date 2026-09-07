@@ -4,6 +4,7 @@ import Modal from '../components/Modal'
 import { getIncomes, createIncome, updateIncome, deleteIncome } from '../api/incomes'
 
 const EMPTY_FORM = { source: '', amount: '', receivedDate: '', note: '' }
+const TODAY = new Date().toISOString().slice(0, 10)
 
 export default function Income() {
   const [incomes, setIncomes] = useState([])
@@ -125,6 +126,7 @@ export default function Income() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Received Date</label>
             <input type="date" name="receivedDate" required value={form.receivedDate} onChange={handleChange}
+              max={TODAY}
               className="w-full border border-gray-300 rounded-md px-3 py-2" />
           </div>
           <div>
