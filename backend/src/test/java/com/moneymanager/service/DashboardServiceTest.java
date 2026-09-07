@@ -33,28 +33,38 @@ class DashboardServiceTest {
 
     @BeforeEach
     void setup() {
-        when(expenseRepository.findLatestByUserId(anyLong(), any())).thenReturn(Collections.emptyList());
-        when(incomeRepository.findLatestByUserId(anyLong(), any())).thenReturn(Collections.emptyList());
+        when(expenseRepository.findLatestByUserIdAndDateRange(anyLong(), any(), any(), any()))
+            .thenReturn(Collections.emptyList());
+        when(incomeRepository.findLatestByUserIdAndDateRange(anyLong(), any(), any(), any()))
+            .thenReturn(Collections.emptyList());
         when(expenseRepository.findTopCategoryByUserIdAndDateRange(anyLong(), any(), any()))
                 .thenReturn(Collections.emptyList());
     }
 
     @Test
     void balance_isIncomeMinusExpenseForSelectedMonth() {
-        when(incomeRepository.sumAmountByUserIdAndDateRange(anyLong(), any(), any()))
+        when(incomeRepository.sumAmountByUserId(1L))
                 .thenReturn(new BigDecimal("1000.00"));
-        when(expenseRepository.sumAmountByUserIdAndDateRange(anyLong(), any(), any()))
+        when(expenseRepository.sumAmountByUserId(1L))
                 .thenReturn(new BigDecimal("350.00"));
+        when(incomeRepository.sumAmountByUserIdAndDateRange(anyLong(), any(), any()))
+            .thenReturn(new BigDecimal("400.00"));
+        when(expenseRepository.sumAmountByUserIdAndDateRange(anyLong(), any(), any()))
+            .thenReturn(new BigDecimal("125.00"));
 
         DashboardResponse result = dashboardService.getDashboard(1L, YearMonth.now());
 
         assertEquals(new BigDecimal("650.00"), result.balance());
         assertEquals(new BigDecimal("1000.00"), result.totalIncome());
         assertEquals(new BigDecimal("350.00"), result.totalExpense());
+        assertEquals(new BigDecimal("400.00"), result.monthlyIncome());
+        assertEquals(new BigDecimal("125.00"), result.monthlyExpense());
     }
 
     @Test
     void noTransactions_balanceIsZero() {
+        when(incomeRepository.sumAmountByUserId(1L)).thenReturn(BigDecimal.ZERO);
+        when(expenseRepository.sumAmountByUserId(1L)).thenReturn(BigDecimal.ZERO);
         when(incomeRepository.sumAmountByUserIdAndDateRange(anyLong(), any(), any())).thenReturn(BigDecimal.ZERO);
         when(expenseRepository.sumAmountByUserIdAndDateRange(anyLong(), any(), any())).thenReturn(BigDecimal.ZERO);
 
