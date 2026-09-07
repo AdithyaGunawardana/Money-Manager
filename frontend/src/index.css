@@ -1,7 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-gray-50 text-gray-900;
+@layer base {
+  :root {
+    font-family: 'Inter', sans-serif;
+    color: #0b1c30;
+    background: #f8fafc;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply min-h-screen bg-page text-slate-900 antialiased;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .page-title {
+    @apply font-display text-2xl font-bold tracking-tight text-navy;
+  }
+
+  .surface {
+    @apply rounded-lg border border-slate-200 bg-white;
+  }
+
+  .input-field {
+    @apply w-full rounded-md border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-widest text-slate-500;
+  }
 }

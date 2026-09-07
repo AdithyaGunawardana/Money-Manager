@@ -16,22 +16,26 @@ export default function Dashboard() {
   }, [month])
 
   return (
-    <div>
+    <div className="min-h-screen bg-page lg:pl-64">
       <Navbar />
-      <div className="max-w-6xl mx-auto px-4 py-6">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-xl font-bold">Dashboard</h1>
+      <main className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-10">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="eyebrow mb-2">Financial overview</p>
+            <h1 className="page-title">Your financial overview</h1>
+            <p className="mt-2 text-sm text-slate-500">Here is how your money is moving this month.</p>
+          </div>
           <input
             type="month" value={month} onChange={(e) => setMonth(e.target.value)}
-            className="border border-gray-300 rounded-md px-3 py-1.5 text-sm"
+            className="input-field w-auto"
           />
         </div>
 
         {loading || !data ? (
-          <p className="text-gray-500">Loading...</p>
+          <div className="surface p-8 text-sm text-slate-500">Loading your overview...</div>
         ) : (
           <>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+            <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
               <StatCard label="Total Income" value={fmt(data.totalIncome)} colorClass="text-income" />
               <StatCard label="Total Expenses" value={fmt(data.totalExpense)} colorClass="text-expense" />
               <StatCard label="Balance" value={fmt(data.balance)} colorClass={data.balance >= 0 ? 'text-income' : 'text-expense'} />
@@ -40,23 +44,28 @@ export default function Dashboard() {
               <StatCard label="Top Expense Category" value={data.topExpenseCategory || '—'} />
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-              <div className="px-4 py-3 border-b font-semibold text-sm">Recent Transactions</div>
+            <div className="surface overflow-hidden shadow-soft">
+              <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+                <div>
+                  <p className="font-display text-base font-bold text-navy">Recent transactions</p>
+                  <p className="mt-1 text-xs text-slate-400">Your latest income and spending activity</p>
+                </div>
+              </div>
               {data.recentTransactions.length === 0 ? (
-                <p className="p-6 text-gray-500 text-center text-sm">No transactions yet.</p>
+                <p className="p-8 text-center text-sm text-slate-500">No transactions yet.</p>
               ) : (
-                <table className="w-full text-sm">
-                  <tbody className="divide-y divide-gray-100">
+                <table className="w-full text-left text-sm">
+                  <tbody className="divide-y divide-slate-100">
                     {data.recentTransactions.map((t) => (
-                      <tr key={`${t.type}-${t.id}`} className="hover:bg-gray-50">
-                        <td className="px-4 py-2">
-                          <span className={`text-xs px-2 py-0.5 rounded-full ${t.type === 'INCOME' ? 'bg-green-100 text-income' : 'bg-red-100 text-expense'}`}>
+                      <tr key={`${t.type}-${t.id}`} className="transition hover:bg-slate-50">
+                        <td className="px-5 py-4">
+                          <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${t.type === 'INCOME' ? 'bg-income-soft text-income' : 'bg-expense-soft text-expense'}`}>
                             {t.type}
                           </span>
                         </td>
-                        <td className="px-4 py-2">{t.label}</td>
-                        <td className="px-4 py-2 text-gray-500">{t.date}</td>
-                        <td className={`px-4 py-2 text-right font-medium ${t.type === 'INCOME' ? 'text-income' : 'text-expense'}`}>
+                        <td className="px-5 py-4 font-medium text-slate-700">{t.label}</td>
+                        <td className="px-5 py-4 text-slate-400">{t.date}</td>
+                        <td className={`px-5 py-4 text-right font-semibold ${t.type === 'INCOME' ? 'text-income' : 'text-expense'}`}>
                           {t.type === 'INCOME' ? '+' : '-'}{fmt(t.amount)}
                         </td>
                       </tr>
@@ -67,7 +76,7 @@ export default function Dashboard() {
             </div>
           </>
         )}
-      </div>
+      </main>
     </div>
   )
 }

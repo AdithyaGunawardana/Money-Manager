@@ -63,44 +63,48 @@ export default function Expenses() {
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-page lg:pl-64">
       <Navbar />
-      <div className="max-w-6xl mx-auto px-4 py-6">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-xl font-bold">Expenses</h1>
-          <button onClick={openAdd} className="bg-expense text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700">
-            + Add Expense
+      <main className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-10">
+        <div className="mb-8 flex items-end justify-between gap-4">
+          <div>
+            <p className="eyebrow mb-2">Spending</p>
+            <h1 className="page-title">Expenses</h1>
+            <p className="mt-2 text-sm text-slate-500">Keep track of where your money goes.</p>
+          </div>
+          <button onClick={openAdd} className="rounded-md bg-expense px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-rose-700">
+            Add expense
           </button>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+        <div className="surface overflow-hidden shadow-soft">
           {loading ? (
-            <p className="p-6 text-gray-500 text-center">Loading...</p>
+            <p className="p-8 text-center text-sm text-slate-500">Loading expenses...</p>
           ) : expenses.length === 0 ? (
-            <p className="p-6 text-gray-500 text-center">No expenses yet. Add your first one.</p>
+            <p className="p-8 text-center text-sm text-slate-500">No expenses yet. Add your first one.</p>
           ) : (
-            <table className="w-full text-sm">
-              <thead className="bg-gray-50 text-gray-500 text-left">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-400">
                 <tr>
-                  <th className="px-4 py-2 font-medium">Title</th>
-                  <th className="px-4 py-2 font-medium">Category</th>
-                  <th className="px-4 py-2 font-medium">Date</th>
-                  <th className="px-4 py-2 font-medium text-right">Amount</th>
-                  <th className="px-4 py-2"></th>
+                  <th className="px-5 py-3 font-semibold">Title</th>
+                  <th className="px-5 py-3 font-semibold">Category</th>
+                  <th className="px-5 py-3 font-semibold">Date</th>
+                  <th className="px-5 py-3 text-right font-semibold">Amount</th>
+                  <th className="px-5 py-3"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {expenses.map((exp) => (
-                  <tr key={exp.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-2">{exp.title}</td>
-                    <td className="px-4 py-2">
-                      <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full">{exp.category}</span>
+                  <tr key={exp.id} className="transition hover:bg-slate-50">
+                    <td className="px-5 py-4 font-medium text-slate-700">{exp.title}</td>
+                    <td className="px-5 py-4">
+                      <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">{exp.category}</span>
                     </td>
-                    <td className="px-4 py-2 text-gray-500">{exp.transactionDate}</td>
-                    <td className="px-4 py-2 text-right font-medium text-expense">-{Number(exp.amount).toFixed(2)}</td>
-                    <td className="px-4 py-2 text-right space-x-2 whitespace-nowrap">
-                      <button onClick={() => openEdit(exp)} className="text-primary hover:underline text-xs">Edit</button>
-                      <button onClick={() => handleDelete(exp.id)} className="text-red-600 hover:underline text-xs">Delete</button>
+                    <td className="px-5 py-4 text-slate-400">{exp.transactionDate}</td>
+                    <td className="px-5 py-4 text-right font-semibold text-expense">-{Number(exp.amount).toFixed(2)}</td>
+                    <td className="whitespace-nowrap px-5 py-4 text-right">
+                      <button onClick={() => openEdit(exp)} className="mr-3 text-xs font-semibold text-indigo-600 hover:text-indigo-800">Edit</button>
+                      <button onClick={() => handleDelete(exp.id)} className="text-xs font-semibold text-rose-600 hover:text-rose-800">Delete</button>
                     </td>
                   </tr>
                 ))}
@@ -108,7 +112,7 @@ export default function Expenses() {
             </table>
           )}
         </div>
-      </div>
+      </main>
 
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editingId ? 'Edit Expense' : 'Add Expense'}>
         {error && <div className="bg-red-50 text-red-600 text-sm rounded-md px-3 py-2 mb-3">{error}</div>}

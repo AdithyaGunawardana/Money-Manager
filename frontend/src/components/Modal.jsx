@@ -2,13 +2,13 @@ export default function Modal({ open, onClose, title, children }) {
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
-        <div className="flex items-center justify-between px-5 py-3 border-b">
-          <h3 className="font-semibold text-lg">{title}</h3>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl leading-none">&times;</button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy/40 p-4">
+      <div className="w-full max-w-md rounded-lg border border-slate-200 bg-white shadow-soft">
+        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+          <h3 className="font-display text-lg font-bold text-navy">{title}</h3>
+          <button onClick={onClose} aria-label="Close" className="text-2xl leading-none text-slate-400 transition hover:text-slate-700">&times;</button>
         </div>
-        <div className="p-5">{children}</div>
+        <div className="p-6">{children}</div>
       </div>
     </div>
   )
