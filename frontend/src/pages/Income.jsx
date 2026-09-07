@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Modal from '../components/Modal'
 import { getIncomes, createIncome, updateIncome, deleteIncome } from '../api/incomes'
+import { formatAmount } from '../utils/format'
 
 const EMPTY_FORM = { source: '', amount: '', receivedDate: '', note: '' }
 const TODAY = new Date().toISOString().slice(0, 10)
@@ -97,7 +98,7 @@ export default function Income() {
                   <tr key={inc.id} className="transition hover:bg-slate-50">
                     <td className="px-5 py-4 font-medium text-slate-700">{inc.source}</td>
                     <td className="px-5 py-4 text-slate-400">{inc.receivedDate}</td>
-                    <td className="px-5 py-4 text-right font-semibold text-income">+{Number(inc.amount).toFixed(2)}</td>
+                    <td className="px-5 py-4 text-right font-semibold text-income">+{formatAmount(inc.amount)}</td>
                     <td className="whitespace-nowrap px-5 py-4 text-right">
                       <button onClick={() => openEdit(inc)} className="mr-3 text-xs font-semibold text-indigo-600 hover:text-indigo-800">Edit</button>
                       <button onClick={() => handleDelete(inc.id)} className="text-xs font-semibold text-rose-600 hover:text-rose-800">Delete</button>

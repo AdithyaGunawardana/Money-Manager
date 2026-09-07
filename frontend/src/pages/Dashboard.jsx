@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import StatCard from '../components/StatCard'
 import { getDashboard } from '../api/dashboard'
-
-const fmt = (n) => `${Number(n).toFixed(2)}`
+import { formatAmount } from '../utils/format'
 
 export default function Dashboard() {
   const [data, setData] = useState(null)
@@ -36,11 +35,11 @@ export default function Dashboard() {
         ) : (
           <>
             <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              <StatCard label="Total Income" value={fmt(data.totalIncome)} colorClass="text-income" />
-              <StatCard label="Total Expenses" value={fmt(data.totalExpense)} colorClass="text-expense" />
-              <StatCard label="Balance" value={fmt(data.balance)} colorClass={data.balance >= 0 ? 'text-income' : 'text-expense'} />
-              <StatCard label="This Month Income" value={fmt(data.monthlyIncome)} colorClass="text-income" />
-              <StatCard label="This Month Expenses" value={fmt(data.monthlyExpense)} colorClass="text-expense" />
+              <StatCard label="Total Income" value={formatAmount(data.totalIncome)} colorClass="text-income" />
+              <StatCard label="Total Expenses" value={formatAmount(data.totalExpense)} colorClass="text-expense" />
+              <StatCard label="Balance" value={formatAmount(data.balance)} colorClass={data.balance >= 0 ? 'text-income' : 'text-expense'} />
+              <StatCard label="This Month Income" value={formatAmount(data.monthlyIncome)} colorClass="text-income" />
+              <StatCard label="This Month Expenses" value={formatAmount(data.monthlyExpense)} colorClass="text-expense" />
               <StatCard label="Top Expense Category" value={data.topExpenseCategory || '—'} />
             </div>
 
@@ -66,7 +65,7 @@ export default function Dashboard() {
                         <td className="px-5 py-4 font-medium text-slate-700">{t.label}</td>
                         <td className="px-5 py-4 text-slate-400">{t.date}</td>
                         <td className={`px-5 py-4 text-right font-semibold ${t.type === 'INCOME' ? 'text-income' : 'text-expense'}`}>
-                          {t.type === 'INCOME' ? '+' : '-'}{fmt(t.amount)}
+                          {t.type === 'INCOME' ? '+' : '-'}{formatAmount(t.amount)}
                         </td>
                       </tr>
                     ))}
