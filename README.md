@@ -24,7 +24,7 @@ PostgreSQL  →  Spring Boot API (Java 17)  →  React SPA (Vite)
 - **Local run**: Java 17+, Maven 3.9+, Node 20+, PostgreSQL 16 (running locally)
 - **Docker run**: Docker + Docker Compose only
 
-## Option A — Run with Docker (recommended, single command)
+## Option A — Run with Docker
 
 ```bash
 docker compose up --build
@@ -123,5 +123,4 @@ Money-Manager/
 
 ## Notes
 
-- Forgot-password/OTP flow was marked optional in the spec and is not implemented.
 - Frontend build step: Vite compiles JSX/bundles on `npm run build` (or automatically inside the Docker image build).
