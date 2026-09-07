@@ -5,6 +5,7 @@ import { getExpenses, createExpense, updateExpense, deleteExpense } from '../api
 
 const CATEGORIES = ['FOOD', 'TRANSPORT', 'BILLS', 'SHOPPING', 'ENTERTAINMENT', 'OTHER']
 const EMPTY_FORM = { title: '', category: 'FOOD', amount: '', transactionDate: '', note: '' }
+const TODAY = new Date().toISOString().slice(0, 10)
 
 export default function Expenses() {
   const [expenses, setExpenses] = useState([])
@@ -137,6 +138,7 @@ export default function Expenses() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
             <input type="date" name="transactionDate" required value={form.transactionDate} onChange={handleChange}
+              max={TODAY}
               className="w-full border border-gray-300 rounded-md px-3 py-2" />
           </div>
           <div>

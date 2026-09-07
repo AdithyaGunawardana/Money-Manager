@@ -32,12 +32,12 @@ public class DashboardService {
         LocalDate from = targetMonth.atDay(1);
         LocalDate to = targetMonth.atEndOfMonth();
 
-        BigDecimal totalIncome = incomeRepository.sumAmountByUserId(userId);
-        BigDecimal totalExpense = expenseRepository.sumAmountByUserId(userId);
+        BigDecimal totalIncome = incomeRepository.sumAmountByUserIdAndDateRange(userId, from, to);
+        BigDecimal totalExpense = expenseRepository.sumAmountByUserIdAndDateRange(userId, from, to);
         BigDecimal balance = totalIncome.subtract(totalExpense);
 
-        BigDecimal monthlyIncome = incomeRepository.sumAmountByUserIdAndDateRange(userId, from, to);
-        BigDecimal monthlyExpense = expenseRepository.sumAmountByUserIdAndDateRange(userId, from, to);
+        BigDecimal monthlyIncome = totalIncome;
+        BigDecimal monthlyExpense = totalExpense;
 
         Category topCategory = expenseRepository.findTopCategoryByUserIdAndDateRange(userId, from, to)
                 .stream().findFirst()
