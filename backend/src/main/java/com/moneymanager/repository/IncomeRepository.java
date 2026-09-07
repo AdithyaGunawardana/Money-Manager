@@ -28,4 +28,11 @@ public interface IncomeRepository extends JpaRepository<Income, Long> {
 
     @Query("SELECT i FROM Income i WHERE i.user.id = :userId ORDER BY i.receivedDate DESC")
     List<Income> findLatestByUserId(@Param("userId") Long userId, Pageable pageable);
+
+    @Query("SELECT i FROM Income i WHERE i.user.id = :userId " +
+           "AND i.receivedDate BETWEEN :from AND :to ORDER BY i.receivedDate DESC")
+    List<Income> findLatestByUserIdAndDateRange(@Param("userId") Long userId,
+                                                 @Param("from") LocalDate from,
+                                                 @Param("to") LocalDate to,
+                                                 Pageable pageable);
 }

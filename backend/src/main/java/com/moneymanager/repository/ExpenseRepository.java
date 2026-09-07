@@ -29,6 +29,13 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     @Query("SELECT e FROM Expense e WHERE e.user.id = :userId ORDER BY e.transactionDate DESC")
     List<Expense> findLatestByUserId(@Param("userId") Long userId, Pageable pageable);
 
+        @Query("SELECT e FROM Expense e WHERE e.user.id = :userId " +
+            "AND e.transactionDate BETWEEN :from AND :to ORDER BY e.transactionDate DESC")
+        List<Expense> findLatestByUserIdAndDateRange(@Param("userId") Long userId,
+                                  @Param("from") LocalDate from,
+                                  @Param("to") LocalDate to,
+                                  Pageable pageable);
+
     @Query("SELECT e.category AS category, SUM(e.amount) AS total FROM Expense e " +
            "WHERE e.user.id = :userId AND e.transactionDate BETWEEN :from AND :to " +
            "GROUP BY e.category ORDER BY SUM(e.amount) DESC")

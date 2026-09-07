@@ -47,7 +47,7 @@ export default function Dashboard() {
               <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
                 <div>
                   <p className="font-display text-base font-bold text-navy">Recent transactions</p>
-                  <p className="mt-1 text-xs text-slate-400">Your latest income and spending activity</p>
+                  <p className="mt-1 text-xs text-slate-400">Your income and spending activity for this month</p>
                 </div>
               </div>
               {data.recentTransactions.length === 0 ? (
