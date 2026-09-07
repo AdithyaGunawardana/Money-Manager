@@ -121,6 +121,40 @@ Money-Manager/
 └── docker-compose.yml
 ```
 
+## End-to-End Tests
+
+The frontend uses Playwright to test complete browser workflows across the React frontend, Spring Boot API, JWT authentication, and database.
+
+Install the Playwright browser once:
+
+```bash
+cd frontend
+npx playwright install chromium
+```
+
+Start the application before running the tests:
+
+```bash
+docker compose up --build
+```
+
+Run all E2E tests from the `frontend` directory:
+
+```bash
+npm run test:e2e
+```
+
+The test suite contains 6 tests covering:
+
+- User registration and dashboard access
+- Adding an expense
+- Adding income
+- Editing and deleting an expense
+- Preventing future transaction dates
+- Filtering dashboard totals and recent transactions by the selected month
+
+The latest Playwright run passed all 6 tests.
+
 ## Notes
 
 - Frontend build step: Vite compiles JSX/bundles on `npm run build` (or automatically inside the Docker image build).
