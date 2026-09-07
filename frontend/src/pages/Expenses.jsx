@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Modal from '../components/Modal'
 import { getExpenses, createExpense, updateExpense, deleteExpense } from '../api/expenses'
+import { formatAmount } from '../utils/format'
 
 const CATEGORIES = ['FOOD', 'TRANSPORT', 'BILLS', 'SHOPPING', 'ENTERTAINMENT', 'OTHER']
 const EMPTY_FORM = { title: '', category: 'FOOD', amount: '', transactionDate: '', note: '' }
@@ -102,7 +103,7 @@ export default function Expenses() {
                       <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">{exp.category}</span>
                     </td>
                     <td className="px-5 py-4 text-slate-400">{exp.transactionDate}</td>
-                    <td className="px-5 py-4 text-right font-semibold text-expense">-{Number(exp.amount).toFixed(2)}</td>
+                    <td className="px-5 py-4 text-right font-semibold text-expense">-{formatAmount(exp.amount)}</td>
                     <td className="whitespace-nowrap px-5 py-4 text-right">
                       <button onClick={() => openEdit(exp)} className="mr-3 text-xs font-semibold text-indigo-600 hover:text-indigo-800">Edit</button>
                       <button onClick={() => handleDelete(exp.id)} className="text-xs font-semibold text-rose-600 hover:text-rose-800">Delete</button>
