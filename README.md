@@ -123,5 +123,4 @@ Money-Manager/
 
 ## Notes
 
-- Forgot-password/OTP flow was marked optional in the spec and is not implemented.
 - Frontend build step: Vite compiles JSX/bundles on `npm run build` (or automatically inside the Docker image build).
