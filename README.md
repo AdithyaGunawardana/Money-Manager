@@ -24,7 +24,7 @@ PostgreSQL  →  Spring Boot API (Java 17)  →  React SPA (Vite)
 - **Local run**: Java 17+, Maven 3.9+, Node 20+, PostgreSQL 16 (running locally)
 - **Docker run**: Docker + Docker Compose only
 
-## Option A — Run with Docker (recommended, single command)
+## Option A — Run with Docker
 
 ```bash
 docker compose up --build
