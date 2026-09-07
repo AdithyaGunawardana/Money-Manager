@@ -26,42 +26,45 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
-        <h1 className="text-2xl font-bold text-center mb-1">💰 Money Manager</h1>
-        <p className="text-center text-gray-500 text-sm mb-6">Create your account</p>
+    <div className="flex min-h-screen items-center justify-center bg-page px-4 py-10">
+      <div className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-8 shadow-soft">
+        <div className="mb-8 text-center">
+          <span className="mx-auto mb-4 grid h-11 w-11 place-items-center rounded-md bg-navy font-display text-sm font-bold text-white">MM</span>
+          <h1 className="font-display text-2xl font-bold text-navy">Create your account</h1>
+          <p className="mt-2 text-sm text-slate-500">Start with a clearer view of your money</p>
+        </div>
 
-        {error && <div className="bg-red-50 text-red-600 text-sm rounded-md px-3 py-2 mb-4">{error}</div>}
+        {error && <div className="mb-4 rounded-md bg-expense-soft px-3 py-2 text-sm text-expense">{error}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-3">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <label className="mb-1 block text-sm font-semibold text-slate-700">Name</label>
             <input name="name" required value={form.name} onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
+              className="input-field" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="mb-1 block text-sm font-semibold text-slate-700">Email</label>
             <input type="email" name="email" required value={form.email} onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
+              className="input-field" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+            <label className="mb-1 block text-sm font-semibold text-slate-700">Address</label>
             <input name="address" value={form.address} onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
+              className="input-field" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="mb-1 block text-sm font-semibold text-slate-700">Password</label>
             <input type="password" name="password" required minLength={6} value={form.password} onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
+              className="input-field" />
           </div>
           <button type="submit" disabled={loading}
-            className="w-full bg-primary text-white rounded-md py-2 font-medium hover:bg-blue-700 disabled:opacity-50 mt-2">
+            className="mt-2 w-full rounded-md bg-primary py-2.5 font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-50">
             {loading ? 'Creating account...' : 'Register'}
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-4">
-          Already have an account? <Link to="/login" className="text-primary font-medium">Sign in</Link>
+        <p className="mt-5 text-center text-sm text-slate-500">
+          Already have an account? <Link to="/login" className="font-semibold text-indigo-600">Sign in</Link>
         </p>
       </div>
     </div>

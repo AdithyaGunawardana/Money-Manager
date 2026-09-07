@@ -8,30 +8,34 @@ export default function Profile() {
   useEffect(() => { getProfile().then(setProfile) }, [])
 
   return (
-    <div>
+    <div className="min-h-screen bg-page lg:pl-64">
       <Navbar />
-      <div className="max-w-lg mx-auto px-4 py-6">
-        <h1 className="text-xl font-bold mb-4">Profile</h1>
+      <main className="mx-auto max-w-4xl px-5 py-8 sm:px-8 lg:px-10">
+        <div className="mb-8">
+          <p className="eyebrow mb-2">Account</p>
+          <h1 className="page-title">Profile</h1>
+          <p className="mt-2 text-sm text-slate-500">Your account details in one place.</p>
+        </div>
         {!profile ? (
-          <p className="text-gray-500">Loading...</p>
+          <div className="surface p-8 text-sm text-slate-500">Loading profile...</div>
         ) : (
-          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-5 space-y-3">
+          <div className="surface max-w-2xl space-y-5 p-6 shadow-soft">
             <Field label="Name" value={profile.name} />
             <Field label="Email" value={profile.email} />
             <Field label="Address" value={profile.address || '—'} />
             <Field label="Member since" value={new Date(profile.createdAt).toLocaleDateString()} />
           </div>
         )}
-      </div>
+      </main>
     </div>
   )
 }
 
 function Field({ label, value }) {
   return (
-    <div>
-      <p className="text-xs text-gray-500 uppercase tracking-wide">{label}</p>
-      <p className="text-gray-900">{value}</p>
+    <div className="border-b border-slate-100 pb-4 last:border-0 last:pb-0">
+      <p className="eyebrow">{label}</p>
+      <p className="mt-1 text-sm font-medium text-slate-800">{value}</p>
     </div>
   )
 }
