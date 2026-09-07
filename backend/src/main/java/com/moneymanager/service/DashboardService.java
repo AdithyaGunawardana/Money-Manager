@@ -44,7 +44,7 @@ public class DashboardService {
                 .map(ExpenseRepository.CategoryTotal::getCategory)
                 .orElse(null);
 
-        List<TransactionSummary> recent = recentTransactions(userId);
+        List<TransactionSummary> recent = recentTransactions(userId, from, to);
 
         return new DashboardResponse(
                 totalIncome, totalExpense, balance,
@@ -53,9 +53,10 @@ public class DashboardService {
         );
     }
 
-    private List<TransactionSummary> recentTransactions(Long userId) {
-        List<Expense> recentExpenses = expenseRepository.findLatestByUserId(userId, PageRequest.of(0, RECENT_LIMIT));
-        List<Income> recentIncomes = incomeRepository.findLatestByUserId(userId, PageRequest.of(0, RECENT_LIMIT));
+        private List<TransactionSummary> recentTransactions(Long userId, LocalDate from, LocalDate to) {
+                PageRequest recentLimit = PageRequest.of(0, RECENT_LIMIT);
+                List<Expense> recentExpenses = expenseRepository.findLatestByUserIdAndDateRange(userId, from, to, recentLimit);
+                List<Income> recentIncomes = incomeRepository.findLatestByUserIdAndDateRange(userId, from, to, recentLimit);
 
         Stream<TransactionSummary> expenseStream = recentExpenses.stream()
                 .map(e -> new TransactionSummary(e.getId(), "EXPENSE", e.getTitle(), e.getAmount(), e.getTransactionDate()));

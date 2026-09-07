@@ -33,8 +33,10 @@ class DashboardServiceTest {
 
     @BeforeEach
     void setup() {
-        when(expenseRepository.findLatestByUserId(anyLong(), any())).thenReturn(Collections.emptyList());
-        when(incomeRepository.findLatestByUserId(anyLong(), any())).thenReturn(Collections.emptyList());
+        when(expenseRepository.findLatestByUserIdAndDateRange(anyLong(), any(), any(), any()))
+            .thenReturn(Collections.emptyList());
+        when(incomeRepository.findLatestByUserIdAndDateRange(anyLong(), any(), any(), any()))
+            .thenReturn(Collections.emptyList());
         when(expenseRepository.findTopCategoryByUserIdAndDateRange(anyLong(), any(), any()))
                 .thenReturn(Collections.emptyList());
     }
